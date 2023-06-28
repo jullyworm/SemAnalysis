@@ -1,0 +1,1 @@
+SemAnalysis_console.exe C:/Users/missc/OneDrive/Документы/texts for tests/Bio/e.txt C:/Users/missc/OneDrive/Документы/texts for tests/Bio/professional_events.txt C:/Users/missc/OneDrive/Документы/texts for tests/Bio/bio_voc.vc test_log.txt
