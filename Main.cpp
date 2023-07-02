@@ -10,32 +10,32 @@ struct SentenceType {
 	std::string type;
 };
 
-//Возвращает текст файла
+//Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСЃС‚ С„Р°Р№Р»Р°
 std::string readFile(const std::string& fileName) {
 	std::ifstream f(fileName);
 	f.seekg(0, std::ios::end);
 	size_t size = f.tellg();
 	std::string s(size, ' ');
 	f.seekg(0);
-	f.read(&s[0], size); // по стандарту можно в C++11, по факту работает и на старых компиляторах
+	f.read(&s[0], size); // РїРѕ СЃС‚Р°РЅРґР°СЂС‚Сѓ РјРѕР¶РЅРѕ РІ C++11, РїРѕ С„Р°РєС‚Сѓ СЂР°Р±РѕС‚Р°РµС‚ Рё РЅР° СЃС‚Р°СЂС‹С… РєРѕРјРїРёР»СЏС‚РѕСЂР°С…
 	return s;
 }
 
 
-//переделать в загрузку файла с правилами окончания предложения (для разных типов текста разные правила)
+//РїРµСЂРµРґРµР»Р°С‚СЊ РІ Р·Р°РіСЂСѓР·РєСѓ С„Р°Р№Р»Р° СЃ РїСЂР°РІРёР»Р°РјРё РѕРєРѕРЅС‡Р°РЅРёСЏ РїСЂРµРґР»РѕР¶РµРЅРёСЏ (РґР»СЏ СЂР°Р·РЅС‹С… С‚РёРїРѕРІ С‚РµРєСЃС‚Р° СЂР°Р·РЅС‹Рµ РїСЂР°РІРёР»Р°)
 bool EndOfSentence(const char* text, int position) {
 	int i = position;
 	if ((text[i] == '.') || (text[i] == '!') || (text[i] == '?') || (text[i] == '\n') || (text[i] == ';')) {
 		if (!(
-			((text[i - 1] == 'н') && (text[i - 2] == ' ')) ||
-			((text[i - 1] == 'э') && (text[i - 2] == ' ')) ||
-			((text[i - 1] == 'в') && (text[i - 2] == ' ')) ||
-			((text[i - 1] == 'г') && (text[i - 2] == ' ')) ||
-			((text[i - 1] == 'г') && (text[i - 2] == 'г') && (text[i - 3] == ' ')) ||
-			((text[i - 1] == 'т') && (text[i - 2] == ' ')) ||
-			((text[i - 1] == 'в') && (text[i - 2] == 'в') && (text[i - 3] == ' ')) ||
-			((text[i - 1] == 'р') && (text[i - 2] == 'к') && (text[i - 3] == 'с') && (text[i - 4] == 'н') && (text[i - 5] == 'а') && (text[i - 6] == 'с')) ||
-			((text[i - 1] == 'с') && (text[i - 2] == 'ы') && (text[i - 3] == 'т') && (text[i - 4] == ' '))
+			((text[i - 1] == 'РЅ') && (text[i - 2] == ' ')) ||
+			((text[i - 1] == 'СЌ') && (text[i - 2] == ' ')) ||
+			((text[i - 1] == 'РІ') && (text[i - 2] == ' ')) ||
+			((text[i - 1] == 'Рі') && (text[i - 2] == ' ')) ||
+			((text[i - 1] == 'Рі') && (text[i - 2] == 'Рі') && (text[i - 3] == ' ')) ||
+			((text[i - 1] == 'С‚') && (text[i - 2] == ' ')) ||
+			((text[i - 1] == 'РІ') && (text[i - 2] == 'РІ') && (text[i - 3] == ' ')) ||
+			((text[i - 1] == 'СЂ') && (text[i - 2] == 'Рє') && (text[i - 3] == 'СЃ') && (text[i - 4] == 'РЅ') && (text[i - 5] == 'Р°') && (text[i - 6] == 'СЃ')) ||
+			((text[i - 1] == 'СЃ') && (text[i - 2] == 'С‹') && (text[i - 3] == 'С‚') && (text[i - 4] == ' '))
 			)) return true;
 	}
 	return false;
@@ -81,14 +81,14 @@ std::vector <std::string> ParseDocTXT(const char* TextFile) {
 	return result;
 }
 
-//Анализ одного файла биографического текста
-int MainAnalysis(const char* TextFile, char* ModelsFile, const char* VocFile, const char* OutFile) { // временное название
+//РђРЅР°Р»РёР· РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° Р±РёРѕРіСЂР°С„РёС‡РµСЃРєРѕРіРѕ С‚РµРєСЃС‚Р°
+int MainAnalysis(const char* TextFile, char* ModelsFile, const char* VocFile, const char* OutFile) { // РІСЂРµРјРµРЅРЅРѕРµ РЅР°Р·РІР°РЅРёРµ
 
 	std::vector <std::string> sentences = ParseDocTXT(TextFile);
 
 	IKNManager* klan = GenerateAPIManager();
 
-	//получаем модели из файла
+	//РїРѕР»СѓС‡Р°РµРј РјРѕРґРµР»Рё РёР· С„Р°Р№Р»Р°
 	ISVLManager* manager = CreateAPIManager();
 	ISemanticVoc* models = manager->GetSemanticVoc();
 	models->LoadFromTXT(ModelsFile);
@@ -109,14 +109,14 @@ int MainAnalysis(const char* TextFile, char* ModelsFile, const char* VocFile, co
 	for (const auto& sentence : sentences) {
 		Analysis *analysis = new Analysis(models, klan);
 		analysis->TestSentence(sentence.c_str());
-		//выписываем обычные модели
+		//РІС‹РїРёСЃС‹РІР°РµРј РѕР±С‹С‡РЅС‹Рµ РјРѕРґРµР»Рё
 		fout << "S " << sentence << std::endl;
 		for (int i = 0; i < analysis->GetCaseFrameWordsCount(); ++i) {
-			fout << "	Модель " << analysis->GetCaseFrameWords(i)->m_pCaseFrame->GetName() << ": " << std::endl;
+			fout << "	РњРѕРґРµР»СЊ " << analysis->GetCaseFrameWords(i)->m_pCaseFrame->GetName() << ": " << std::endl;
 			for (int j = 0; j < analysis->GetCaseFrameWords(i)->m_WordVec.size(); ++j) {
 				IWordBase* word = analysis->GetCaseFrameWords(i)->m_WordVec[j]->m_pWord;
 				IAktant* aktant = analysis->GetCaseFrameWords(i)->m_WordVec[j]->m_pAktant;
-				if (aktant == nullptr) fout << "		Предикат: ";
+				if (aktant == nullptr) fout << "		РџСЂРµРґРёРєР°С‚: ";
 				else fout << "		Aktant " << aktant->GetName() << ": ";
 				if (word->GetPreText() != NULL) fout << word->GetPreText() << " ";
 				fout << word->GetForm() << std::endl;
@@ -124,12 +124,12 @@ int MainAnalysis(const char* TextFile, char* ModelsFile, const char* VocFile, co
 			fout << std::endl;
 		}
 		for (int i = 0; i < analysis->GetUnCaseFrameWordCount(); ++i) {
-			fout << "	Унарная модель " << analysis->GetUnCaseFrameWord(i)->m_pUnCaseFrame->GetName() << ": ";
+			fout << "	РЈРЅР°СЂРЅР°СЏ РјРѕРґРµР»СЊ " << analysis->GetUnCaseFrameWord(i)->m_pUnCaseFrame->GetName() << ": ";
 			IWordBase* word = analysis->GetUnCaseFrameWord(i)->m_pWord;
 			fout << word->GetForm() << " " << std::endl;
 		}
 		for (int i = 0; i < analysis->GetBilexemaWordsCount(); ++i) {
-			fout << "	Билексема " << analysis->GetBilexemaWords(i)->m_pBilexema->GetName() << ": \"";
+			fout << "	Р‘РёР»РµРєСЃРµРјР° " << analysis->GetBilexemaWords(i)->m_pBilexema->GetName() << ": \"";
 			for (int j = 0; j < analysis->GetBilexemaWords(i)->m_CFWordVec.size(); ++j) {
 				CaseFrameWords* cf_word = analysis->GetBilexemaWords(i)->m_CFWordVec[j];
 				for (int l = 0; l < cf_word->m_WordVec.size(); ++l) {
@@ -141,11 +141,11 @@ int MainAnalysis(const char* TextFile, char* ModelsFile, const char* VocFile, co
 			fout <<"\"" << std::endl;
 			for (int j = 0; j < analysis->GetBilexemaWords(i)->m_CFWordVec.size(); ++j) {
 				CaseFrameWords* cf_word = analysis->GetBilexemaWords(i)->m_CFWordVec[j];
-				fout << "	Модель " << cf_word->m_pCaseFrame->GetName() << ": " << std::endl;
+				fout << "	РњРѕРґРµР»СЊ " << cf_word->m_pCaseFrame->GetName() << ": " << std::endl;
 				for (int l = 0; l < cf_word->m_WordVec.size(); ++l) {
 					IWordBase* word = cf_word->m_WordVec[l]->m_pWord;
 					IAktant* aktant = cf_word->m_WordVec[l]->m_pAktant;
-					if (aktant == nullptr) fout << "		Предикат: ";
+					if (aktant == nullptr) fout << "		РџСЂРµРґРёРєР°С‚: ";
 					else fout << "		Aktant " << aktant->GetName() << ": ";
 					if (word->GetPreText() != NULL) fout << word->GetPreText() << " ";
 					fout << word->GetForm() << std::endl;
@@ -159,10 +159,10 @@ int MainAnalysis(const char* TextFile, char* ModelsFile, const char* VocFile, co
 	return 0;
 }
 
-// 1. argv[1] - имя файла c текстом (или директория?)
-// 2. argv[2] - имя файла c моделями (или директория?)
-// 3. argv[3] - путь до словаря Клан
-// 4. argv[4] - имя файла результата (не обязательно)
+// 1. argv[1] - РёРјСЏ С„Р°Р№Р»Р° c С‚РµРєСЃС‚РѕРј (РёР»Рё РґРёСЂРµРєС‚РѕСЂРёСЏ?)
+// 2. argv[2] - РёРјСЏ С„Р°Р№Р»Р° c РјРѕРґРµР»СЏРјРё (РёР»Рё РґРёСЂРµРєС‚РѕСЂРёСЏ?)
+// 3. argv[3] - РїСѓС‚СЊ РґРѕ СЃР»РѕРІР°СЂСЏ РљР»Р°РЅ
+// 4. argv[4] - РёРјСЏ С„Р°Р№Р»Р° СЂРµР·СѓР»СЊС‚Р°С‚Р° (РЅРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)
 int main(int argc, char* argv[]) {
 	setlocale(LC_ALL, "Russian");
 
